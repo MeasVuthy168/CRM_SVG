@@ -63,12 +63,14 @@ table {
     background: white;
     font-size: 14px;
     box-sizing: border-box;
+    table-layout: fixed;
 }
 
 th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
+    word-wrap: break-word;
 }
 
 /* Table Header */
@@ -81,7 +83,8 @@ th {
 thead th {
     position: sticky;
     top: 0;
-    z-index: 1;
+    background-color: #007bff; /* Ensuring it matches the header color */
+    z-index: 2; /* Makes sure header stays above other table rows */
 }
 
 /* Make Table Scrollable on Small Screens */
@@ -94,6 +97,7 @@ thead th {
 
     th, td {
         padding: 8px;
+        font-size: 12px; /* Smaller font for mobile */
     }
 
     #resultLabel {
