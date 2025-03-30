@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Names & Phone Numbers</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Search Names & Phone Numbers</h1>
+    <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
+    <button id="searchButton">Search</button>
+    <table id="results">
+        <thead>
+            <tr>
+                <th>CIF</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let data = [];
+
+            function fetchData() {
+                fetch("data.json")
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Failed to load data.json");
+                        }
+                        return response.json();
+                    })
+                    .then(json => {
+                        data = json;
+                        console.log("Data loaded successfully");
+                    })
+                    .catch(error => {
+                        console.error("Error loading data:", error);
+                        alert("Failed to load data. Please ensure data.json is available.");
+                    });
+            }
+
+            function performSearch() {
+                if (data.length === 0) {
+                    alert("Data is still loading or unavailable.");
+                    return;
+                }
+                const query = document.getElementById("searchBox").value.toLowerCase();
+                const results = data.filter(item =>
+                    item.CIF.toLowerCase().includes(query) ||
+                    item.Name.toLowerCase().includes(query) ||
+                    item.Address.toLowerCase().includes(query) ||
+                    item.Phone_Number.includes(query)
+                );
+                displayResults(results);
+            }
+
+            function displayResults(results) {
+                const resultsTable = document.querySelector("#results tbody");
+                resultsTable.innerHTML = results.length > 0 ? results.map(item =>
+                    `<tr>
+                        <td>${item.CIF}</td>
+                        <td>${item.Name}</td>
+                        <td>${item.Address}</td>
+                        <td>${item.Phone_Number}</td>
+                    </tr>`).join("") : "<tr><td colspan='4'>No results found</td></tr>";
+            }
+
+            document.getElementById("searchButton").addEventListener("click", performSearch);
+
+            fetchData();
+        });
+    </script>
+</body>
+</html>
