@@ -10,9 +10,7 @@
     <h1>ស្វែងរកអតិថិជន</h1>
     <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
     <button id="searchButton">Search</button>
-    <!-- Search Result Count Label -->
-    <div id="resultLabel">Search Results: 0</div>
-    
+
     <table id="results">
         <thead>
             <tr>
@@ -24,7 +22,13 @@
         </thead>
         <tbody></tbody>
     </table>
-    
+
+    <!-- Search Result Count Label -->
+    <div id="resultLabel">Search Results: 0</div>
+
+    <!-- Copyright Label -->
+    <div id="copyrightLabel">© 2025 Built for Credit Team SVG</div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let data = [];
@@ -83,10 +87,14 @@
 
             function displayResults(results) {
                 const resultsTable = document.querySelector("#results tbody");
+                const tableHead = document.querySelector("#results thead");
                 const resultLabel = document.getElementById("resultLabel");
 
                 // Update the result label with the count of results
                 resultLabel.textContent = `Search Results: ${results.length}`;
+
+                // Hide table headers if no results are found
+                tableHead.style.display = results.length > 0 ? "" : "none";
 
                 // Update the table with the search results
                 resultsTable.innerHTML = results.length > 0 ? results.map(item =>
