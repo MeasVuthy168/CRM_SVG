@@ -1,0 +1,6 @@
+
+[
+    {"CIF": "12345", "Name": "John Doe", "Address": "123 Main St", "Phone_Number": "555-1234"},
+    {"CIF": "67890", "Name": "Jane Smith", "Address": "456 Oak St", "Phone_Number": "555-5678"},
+    {"CIF": "54321", "Name": "Alice Johnson", "Address": "789 Pine St", "Phone_Number": "555-8765"}
+]
