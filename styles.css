@@ -15,13 +15,14 @@ h1 {
 
 /* Input Field */
 input {
-    width: 90%;
-    max-width: 400px;
+    width: 90%; /* Adjust for small screens */
+    max-width: 400px; /* Prevent too wide on larger screens */
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
     outline: none;
+    margin-bottom: 10px;
     box-sizing: border-box;
 }
 
@@ -45,11 +46,12 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Search Result Label */
-#searchResult {
-    margin: 15px 0;
+/* Result Label */
+#resultLabel {
     font-size: 16px;
     font-weight: bold;
+    margin-top: 10px;
+    color: #333;
 }
 
 /* Table */
@@ -61,34 +63,41 @@ table {
     background: white;
     font-size: 14px;
     box-sizing: border-box;
-    display: block;
-    overflow-x: auto;
 }
 
-/* Table Header */
-th {
-    background-color: #007bff;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1; /* Keeps header on top */
-}
-
-/* Table Cells */
 th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
 }
 
-/* Make Table Fit on Small Screens */
+/* Table Header */
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Frozen Table Header */
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Make Table Scrollable on Small Screens */
 @media screen and (max-width: 600px) {
     table {
-        width: 100%;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 
     th, td {
         padding: 8px;
+    }
+
+    #resultLabel {
+        font-size: 14px; /* Smaller font size for mobile */
     }
 }
 
