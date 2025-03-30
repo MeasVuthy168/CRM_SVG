@@ -1,8 +1,12 @@
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
 }
 
 input {
@@ -10,12 +14,44 @@ input {
     padding: 10px;
     margin: 10px 0;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 ul {
@@ -27,6 +63,7 @@ li {
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ddd;
+    background: white;
 }
 
 li strong {
