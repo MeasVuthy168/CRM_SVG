@@ -26,9 +26,9 @@
         document.addEventListener("DOMContentLoaded", () => {
             let data = [];
 
-            // Function to fetch only the first 3 JSON files
+            // Function to fetch only the first 5 JSON files
             function fetchData() {
-                const files = ["data.json", "data1.json", "data2.json"];
+                const files = ["data.json", "data1.json", "data2.json", "data3.json", "data4.json", "data5.json"];
 
                 Promise.all(files.map(file => 
                     fetch(file)
@@ -40,13 +40,13 @@
                         })
                 ))
                 .then(jsonData => {
-                    // Merge data from the three files
+                    // Merge data from the five files
                     data = jsonData.flat();
-                    console.log("Data loaded successfully from data.json, data1.json, and data2.json", data);
+                    console.log("Data loaded successfully from 5 JSON files", data);
                 })
                 .catch(error => {
                     console.error("Error loading data:", error);
-                    alert("Failed to load data. Please check that data.json, data1.json, and data2.json are available and properly formatted.");
+                    alert("Failed to load data. Please check that all 5 JSON files are available and properly formatted.");
                 });
             }
 
