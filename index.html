@@ -8,11 +8,15 @@
 </head>
 <body>
     <h1>ស្វែងរកអតិថិជន</h1>
-    <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
-    <button id="searchButton">Search</button>
+    
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
+        <button id="searchButton">Search</button>
+        <span id="resultLabel">Search Results: 0</span>
+    </div>
 
     <table id="results">
-        <thead>
+        <thead style="display: none;">
             <tr>
                 <th>CIF</th>
                 <th>Name</th>
@@ -23,11 +27,9 @@
         <tbody></tbody>
     </table>
 
-    <!-- Search Result Count Label -->
-    <div id="resultLabel">Search Results: 0</div>
-
-    <!-- Copyright Label -->
-    <div id="copyrightLabel">© 2025 Built for Credit Team SVG</div>
+    <div class="footer">
+        <p>© 2025 Built for Credit Team SVG</p>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -42,31 +44,16 @@
 
                 Promise.all(files.map(file =>
                     fetch(file)
-                        .then(response => {
-                            if (!response.ok) {
-                                console.error(`Error loading ${file}: ${response.status} ${response.statusText}`);
-                                throw new Error(`Failed to load ${file}`);
-                            }
-                            console.log(`${file} loaded successfully`);
-                            return response.json();
-                        })
+                        .then(response => response.ok ? response.json() : Promise.reject(`Failed to load ${file}`))
                         .then(json => {
                             if (Array.isArray(json)) {
                                 data = data.concat(json);
                                 loadedFiles++;
-                            } else {
-                                console.error(`Invalid JSON format in ${file}`);
                             }
                         })
-                        .catch(error => {
-                            console.error(`Error with ${file}:`, error);
-                        })
+                        .catch(error => console.error(error))
                 )).then(() => {
-                    if (loadedFiles === 0) {
-                        alert("All JSON files failed to load. Check if they exist and are correctly formatted.");
-                    } else {
-                        console.log(`Successfully loaded ${loadedFiles} JSON files.`);
-                    }
+                    if (loadedFiles === 0) alert("All JSON files failed to load.");
                 });
             }
 
@@ -90,20 +77,18 @@
                 const tableHead = document.querySelector("#results thead");
                 const resultLabel = document.getElementById("resultLabel");
 
-                // Update the result label with the count of results
                 resultLabel.textContent = `Search Results: ${results.length}`;
+                tableHead.style.display = results.length > 0 ? "table-header-group" : "none";
 
-                // Hide table headers if no results are found
-                tableHead.style.display = results.length > 0 ? "" : "none";
-
-                // Update the table with the search results
-                resultsTable.innerHTML = results.length > 0 ? results.map(item =>
-                    `<tr>
-                        <td>${item.CIF}</td>
-                        <td>${item.Name}</td>
-                        <td>${item.Address}</td>
-                        <td>${item.Phone_Number}</td>
-                    </tr>`).join("") : "<tr><td colspan='4'>No results found</td></tr>";
+                resultsTable.innerHTML = results.length > 0 
+                    ? results.map(item => `
+                        <tr>
+                            <td>${item.CIF}</td>
+                            <td>${item.Name}</td>
+                            <td>${item.Address}</td>
+                            <td>${item.Phone_Number}</td>
+                        </tr>`).join("") 
+                    : "<tr><td colspan='4'>No results found</td></tr>";
             }
 
             document.getElementById("searchButton").addEventListener("click", performSearch);
