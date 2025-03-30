@@ -28,7 +28,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             let data = [];
-            let sortOrder = { column: '', direction: 'asc' }; // Track the sorting state
+            let sortOrder = { column: '', direction: 'asc' }; // Track sorting state
 
             // Fetch data from JSON files
             function fetchData() {
@@ -112,6 +112,20 @@
                 // Update the sort order for next click
                 sortOrder = { column, direction: isAsc ? 'desc' : 'asc' };
                 displayResults(sortedData); // Show sorted data
+                updateSortIndicator(column, isAsc); // Update the arrow indicators
+            }
+
+            // Update the sorting indicator arrows in the table headers
+            function updateSortIndicator(column, isAsc) {
+                // Remove the indicator class from all headers
+                const headers = document.querySelectorAll("th");
+                headers.forEach(header => {
+                    header.classList.remove("sorted-asc", "sorted-desc");
+                });
+
+                // Add the sorted class to the selected column header
+                const sortedHeader = document.querySelector(`th[data-column='${column}']`);
+                sortedHeader.classList.add(isAsc ? "sorted-asc" : "sorted-desc");
             }
 
             // Add event listeners for sorting
