@@ -9,25 +9,33 @@ body {
 /* Headings */
 h1 {
     color: #333;
-    font-size: 20px;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Search Container */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 15px;
 }
 
 /* Input Field */
-input {
-    width: 90%;
+#searchBox {
+    width: 60%;
     max-width: 400px;
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
     outline: none;
-    margin-bottom: 10px;
-    box-sizing: border-box;
 }
 
 /* Button */
-button {
+#searchButton {
     padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -36,42 +44,24 @@ button {
     border: none;
     border-radius: 8px;
     transition: 0.3s;
-    margin-top: 10px;
-    width: 90%;
-    max-width: 400px;
-    box-sizing: border-box;
 }
 
-button:hover {
+#searchButton:hover {
     background-color: #0056b3;
 }
 
-/* Result Label - Positioned Bottom Right */
+/* Search Results Label */
 #resultLabel {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-/* Copyright Label - Positioned Bottom Left */
-#copyrightLabel {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bold;
     color: #333;
+    float: right;
 }
 
 /* Table */
 table {
     width: 100%;
-    max-width: 100%;
-    margin: 15px auto;
+    margin-top: 15px;
     border-collapse: collapse;
     background: white;
     font-size: 14px;
@@ -92,15 +82,7 @@ th {
     color: white;
 }
 
-/* Frozen Table Header */
-thead th {
-    position: sticky;
-    top: 0;
-    background-color: #007bff;
-    z-index: 2;
-}
-
-/* Make Table Scrollable on Small Screens */
+/* Table Responsive */
 @media screen and (max-width: 600px) {
     table {
         display: block;
@@ -118,25 +100,9 @@ thead th {
     }
 }
 
-/* List Styles */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin: 10px 0;
-    padding: 12px;
-    border: 1px solid #ddd;
-    background: white;
+/* Footer */
+.footer {
+    margin-top: 20px;
     font-size: 14px;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-/* Make List Items Look Better */
-li strong {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+    color: #555;
 }
