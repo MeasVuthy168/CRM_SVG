@@ -26,33 +26,31 @@
         document.addEventListener("DOMContentLoaded", () => {
             let data = [];
 
-            // Function to fetch data from multiple JSON files
+            // Function to fetch only the first 3 JSON files
             function fetchData() {
-                const files = [
-                    "data.json", "data1.json", "data2.json", "data3.json", 
-                    "data4.json", "data5.json", "data6.json", "data7.json", 
-                    "data8.json", "data9.json", "data10.json"
-                ];
+                const files = ["data.json", "data1.json", "data2.json"];
 
-                // Fetch all files in parallel using Promise.all
-                Promise.all(files.map(file => fetch(file).then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Failed to load ${file}`);
-                    }
-                    return response.json();
-                })))
+                Promise.all(files.map(file => 
+                    fetch(file)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Failed to load ${file}: ${response.statusText}`);
+                            }
+                            return response.json();
+                        })
+                ))
                 .then(jsonData => {
-                    // Merge data from all files into one array
-                    data = jsonData.flat();  // Flatten the array of arrays
-                    console.log("Data loaded successfully from all files");
+                    // Merge data from the three files
+                    data = jsonData.flat();
+                    console.log("Data loaded successfully from data.json, data1.json, and data2.json", data);
                 })
                 .catch(error => {
                     console.error("Error loading data:", error);
-                    alert("Failed to load data. Please ensure all JSON files are available.");
+                    alert("Failed to load data. Please check that data.json, data1.json, and data2.json are available and properly formatted.");
                 });
             }
 
-            // Function to perform the search
+            // Function to perform search
             function performSearch() {
                 if (data.length === 0) {
                     alert("Data is still loading or unavailable.");
