@@ -1,98 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Names & Phone Numbers</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Search Names & Phone Numbers</h1>
-    <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
-    <button id="searchButton">Search</button>
-    <table id="results">
-        <thead>
-            <tr>
-                <th>CIF</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            let data = [];
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 10px;
+    background-color: #f4f4f4;
+}
 
-            function fetchData() {
-                const files = [
-                    "data.json", "data1.json", "data2.json", "data3.json", "data4.json", 
-                    "data5.json", "data6.json", "data7.json", "data8.json", "data9.json"
-                ];
-                let loadedFiles = 0; 
+/* Headings */
+h1 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
 
-                Promise.all(files.map(file =>
-                    fetch(file)
-                        .then(response => {
-                            if (!response.ok) {
-                                console.error(`Error loading ${file}: ${response.status} ${response.statusText}`);
-                                throw new Error(`Failed to load ${file}`);
-                            }
-                            console.log(`${file} loaded successfully`);
-                            return response.json();
-                        })
-                        .then(json => {
-                            if (Array.isArray(json)) {
-                                data = data.concat(json);
-                                loadedFiles++;
-                            } else {
-                                console.error(`Invalid JSON format in ${file}`);
-                            }
-                        })
-                        .catch(error => {
-                            console.error(`Error with ${file}:`, error);
-                        })
-                )).then(() => {
-                    if (loadedFiles === 0) {
-                        alert("All JSON files failed to load. Check if they exist and are correctly formatted.");
-                    } else {
-                        console.log(`Successfully loaded ${loadedFiles} JSON files.`);
-                    }
-                });
-            }
+/* Input Field */
+input {
+    width: 90%; /* Adjust for small screens */
+    max-width: 400px; /* Prevent too wide on larger screens */
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
 
-            function performSearch() {
-                if (data.length === 0) {
-                    alert("Data is still loading or unavailable.");
-                    return;
-                }
-                const query = document.getElementById("searchBox").value.toLowerCase();
-                const results = data.filter(item =>
-                    item.CIF.toLowerCase().includes(query) ||
-                    item.Name.toLowerCase().includes(query) ||
-                    item.Address.toLowerCase().includes(query) ||
-                    item.Phone_Number.includes(query)
-                );
-                displayResults(results);
-            }
+/* Button */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-top: 10px;
+    width: 90%;
+    max-width: 400px;
+}
 
-            function displayResults(results) {
-                const resultsTable = document.querySelector("#results tbody");
-                resultsTable.innerHTML = results.length > 0 ? results.map(item =>
-                    `<tr>
-                        <td>${item.CIF}</td>
-                        <td>${item.Name}</td>
-                        <td>${item.Address}</td>
-                        <td>${item.Phone_Number}</td>
-                    </tr>`).join("") : "<tr><td colspan='4'>No results found</td></tr>";
-            }
+button:hover {
+    background-color: #0056b3;
+}
 
-            document.getElementById("searchButton").addEventListener("click", performSearch);
+/* Responsive Table */
+table {
+    width: 100%;
+    max-width: 100%;
+    margin: 15px auto;
+    border-collapse: collapse;
+    background: white;
+    font-size: 14px; /* Smaller text for mobile */
+}
 
-            fetchData();
-        });
-    </script>
-</body>
-</html>
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Make Table Scrollable on Small Screens */
+@media screen and (max-width: 600px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
+
+/* List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+/* Make List Items Look Better */
+li strong {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
