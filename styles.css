@@ -1,80 +1,129 @@
-/* Global Styles */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 20px;
+    margin: 10px;
+    background-color: #f4f4f4;
 }
 
+/* Headings */
+h1 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Input Field */
 input {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
+    width: 90%; /* Adjust for small screens */
+    max-width: 400px; /* Prevent too wide on larger screens */
+    padding: 12px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
+/* Button */
 button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-top: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
 }
 
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Result Label */
 #resultLabel {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
 }
 
+/* Table */
 table {
     width: 100%;
-    margin-top: 20px;
+    max-width: 100%;
+    margin: 15px auto;
     border-collapse: collapse;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    font-size: 14px;
+    box-sizing: border-box;
+    table-layout: fixed;
 }
 
 th, td {
-    padding: 12px;
+    padding: 10px;
+    border: 1px solid #ddd;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
 }
 
+/* Table Header */
 th {
-    background-color: #f4f4f4;
-    cursor: pointer;
-    position: relative; /* For positioning the sort arrows */
+    background-color: #007bff;
+    color: white;
 }
 
-/* Sorting Indicators (Arrows) */
-th.sortable::after {
-    content: ' ▼'; /* Default to descending */
-    font-size: 12px;
-    color: #888;
+/* Frozen Table Header */
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #007bff; /* Ensuring it matches the header color */
+    z-index: 2; /* Makes sure header stays above other table rows */
 }
 
-th.sorted-asc::after {
-    content: ' ▲'; /* Ascending arrow */
-}
-
-th.sorted-desc::after {
-    content: ' ▼'; /* Descending arrow */
-}
-
-td {
-    font-size: 16px;
-}
-
+/* Make Table Scrollable on Small Screens */
 @media screen and (max-width: 600px) {
-    input, button {
-        width: 90%;
-    }
-    
     table {
-        font-size: 14px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 
     th, td {
         padding: 8px;
+        font-size: 12px; /* Smaller font for mobile */
     }
-    
+
     #resultLabel {
-        font-size: 16px;
+        font-size: 14px; /* Smaller font size for mobile */
     }
+}
+
+/* List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 14px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Make List Items Look Better */
+li strong {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
