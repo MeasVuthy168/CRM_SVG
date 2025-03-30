@@ -10,6 +10,9 @@
     <h1>ស្វែងរកអតិថិជន</h1>
     <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
     <button id="searchButton">Search</button>
+    <!-- Search Result Count Label -->
+    <div id="resultLabel">Search Results: 0</div>
+    
     <table id="results">
         <thead>
             <tr>
@@ -31,7 +34,7 @@
                     "data.json", "data1.json", "data2.json", "data3.json", "data4.json", 
                     "data5.json", "data6.json", "data7.json", "data8.json", "data9.json"
                 ];
-                let loadedFiles = 0; 
+                let loadedFiles = 0;
 
                 Promise.all(files.map(file =>
                     fetch(file)
@@ -80,6 +83,12 @@
 
             function displayResults(results) {
                 const resultsTable = document.querySelector("#results tbody");
+                const resultLabel = document.getElementById("resultLabel");
+
+                // Update the result label with the count of results
+                resultLabel.textContent = `Search Results: ${results.length}`;
+
+                // Update the table with the search results
                 resultsTable.innerHTML = results.length > 0 ? results.map(item =>
                     `<tr>
                         <td>${item.CIF}</td>
