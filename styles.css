@@ -35,7 +35,7 @@ h1 {
 }
 
 /* Button */
-#searchButton {
+#searchButton, .menu-button {
     padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -46,8 +46,21 @@ h1 {
     transition: 0.3s;
 }
 
-#searchButton:hover {
+#searchButton:hover, .menu-button:hover {
     background-color: #0056b3;
+}
+
+/* Back to Main Button */
+.menu-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    background-color: #28a745;
+}
+
+.menu-button:hover {
+    background-color: #218838;
 }
 
 /* Search Results Label */
