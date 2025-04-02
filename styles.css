@@ -4,6 +4,7 @@ body {
     text-align: center;
     margin: 10px;
     background-color: #f4f4f4;
+    position: relative;
 }
 
 /* Headings */
@@ -52,7 +53,7 @@ h1 {
 
 /* Back Button */
 .back-button {
-    position: absolute;
+    position: fixed;
     top: 10px;
     left: 10px;
     padding: 10px 15px;
@@ -63,6 +64,7 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s;
+    z-index: 1000;
 }
 
 .back-button:hover {
