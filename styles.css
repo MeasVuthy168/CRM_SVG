@@ -35,7 +35,7 @@ h1 {
 }
 
 /* Button */
-#searchButton, .menu-button {
+#searchButton {
     padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -46,21 +46,27 @@ h1 {
     transition: 0.3s;
 }
 
-#searchButton:hover, .menu-button:hover {
+#searchButton:hover {
     background-color: #0056b3;
 }
 
-/* Back to Main Button */
-.menu-button {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 20px auto;
-    background-color: #28a745;
+/* Back Button */
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-.menu-button:hover {
-    background-color: #218838;
+.back-button:hover {
+    background-color: #0056b3;
 }
 
 /* Search Results Label */
