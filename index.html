@@ -14,15 +14,20 @@
     }
 
     .back-button {
-      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       background-color: #3399ff;
       color: white;
-      padding: 10px;
+      padding: 12px;
       border: none;
       font-size: 16px;
       font-family: 'Khmer OS System', Arial, sans-serif;
       cursor: pointer;
+      z-index: 1000;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     .back-button:hover {
@@ -31,7 +36,8 @@
 
     h1 {
       text-align: center;
-      margin-top: 20px;
+      margin: 80px 0 20px;
+      color: white;
     }
 
     .search-container {
@@ -126,20 +132,35 @@
 
       .back-button {
         font-size: 14px;
+        padding: 10px;
+      }
+
+      h1 {
+        margin-top: 70px;
+        font-size: 20px;
       }
 
       .table-container {
         font-size: 13px;
       }
     }
+
+    @media print {
+      .back-button {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Back to Main Button -->
+  <!-- Fixed Back Button -->
   <button class="back-button" onclick="window.location.href='https://measvuthy168.github.io/CreditAssist/'">
     ⬅ ត្រឡប់ទៅទំព័រដើម
   </button>
+
+  <!-- Spacer to avoid content being hidden under fixed button -->
+  <div style="height: 60px;"></div>
 
   <h1>ស្វែងរកអតិថិជន</h1>
   
