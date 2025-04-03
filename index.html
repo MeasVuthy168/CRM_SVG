@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YEARLY AVERAGE OF DEBIT TURNOVER</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1c2331; /* Dark background */
+      color: white;
+      margin: 20px;
+    }
+
+    .khmer-back-wrapper {
+      background-color: #3399ff;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .khmer-back-button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-family: 'Khmer OS System', Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    .khmer-back-button:hover {
+      text-decoration: underline;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .header h2 {
+      margin: 0;
+      color: white;
+    }
+
+    .header img {
+      height: 60px;
+    }
+
+    .form-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .form-section .half {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 220px;
+    }
+
+    .form-section .full {
+      flex: 1 1 100%;
+    }
+
+    .form-section label {
+      font-weight: bold;
+      margin-bottom: 4px;
+      display: block;
+      color: white;
+    }
+
+    .form-section input {
+      padding: 6px;
+      width: 100%;
+      background-color: #2c3545;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .actions {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .actions button {
+      padding: 8px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .actions button:hover {
+      background-color: #0056b3;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      background-color: white;
+      font-size: 14px;
+      table-layout: fixed;
+      color: black;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    th {
+      background-color: #dbe8f5;
+    }
+
+    tfoot td {
+      font-weight: bold;
+      background-color: #e3edf7;
+    }
+
+    .not-found {
+      background-color: #fff3cd !important;
+    }
+
+    .oldest {
+      background-color: #f2f2f2;
+    }
+
+    .newest {
+      background-color: #e1f5e6;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .form-section {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .form-section .half,
+      .form-section .full {
+        width: 100%;
+        min-width: unset;
+      }
+
+      table {
+        font-size: 12px;
+        min-width: unset;
+      }
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        color: black;
+        margin: 0;
+        padding: 0;
+      }
+
+      .form-section,
+      .actions,
+      .khmer-back-wrapper {
+        display: none !important;
+      }
+
+      table {
+        width: 100%;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="khmer-back-wrapper">
+    <button class="khmer-back-button" onclick="window.location.href='https://measvuthy168.github.io/CreditAssist/'">
+      ⬅ ត្រឡប់ទៅទំព័រដើម
+    </button>
+  </div>
+
+  <div class="header">
+    <h2>YEARLY AVERAGE OF DEBIT TURNOVER</h2>
+    <img src="logo.png" alt="Logo" />
+  </div>
+
+  <div class="form-section">
+    <div class="half">
+      <label for="prepared-date">Prepared Date</label>
+      <input type="date" id="prepared-date" />
+    </div>
+    <div class="half">
+      <label for="input-cif">Input CIF</label>
+      <input type="text" id="input-cif" />
+    </div>
+    <div class="full">
+      <label for="customer-name">Customer Name</label>
+      <input type="text" id="customer-name" disabled />
+    </div>
+  </div>
+
+  <div class="actions">
+    <button onclick="printPage()">Print</button>
+    <button onclick="exportToExcel()">Export to Excel</button>
+    <button onclick="exportToPDF()">Export to PDF</button>
+  </div>
+
+  <div class="table-container">
+    <table id="turnover-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">MONTH</th>
+          <th style="width: 20%;">AMT_IN</th>
+          <th style="width: 20%;">CURRENT_OD</th>
+          <th style="width: 20%;">TURNOVER RATE</th>
+          <th style="width: 20%;">Effective Date</th>
+        </tr>
+      </thead>
+      <tbody id="data-body"></tbody>
+      <tfoot>
+        <tr>
+          <td>Average</td>
+          <td id="avg-amt-in"></td>
+          <td id="avg-current-od"></td>
+          <td id="avg-turnover-rate"></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    let monthList = [];
+    let combinedData = [];
+
+    function getLast12MonthEnds(baseDate) {
+      const months = [];
+      const date = new Date(baseDate);
+      date.setDate(1);
+      for (let i = 0; i < 12; i++) {
+        date.setMonth(date.getMonth() - 1);
+        const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        const dd = String(endOfMonth.getDate()).padStart(2, '0');
+        const mm = String(endOfMonth.getMonth() + 1).padStart(2, '0');
+        const yy = String(endOfMonth.getFullYear()).slice(-2);
+        months.push(`${dd}-${mm}-${yy}`);
+      }
+      return months;
+    }
+
+    function updateTableWithEmptyMonths(months) {
+      const tbody = document.getElementById('data-body');
+      tbody.innerHTML = '';
+      months.forEach(month => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${month}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    async function loadAllData() {
+      combinedData = [];
+      const files = ['data1.json', 'data2.json'];
+      for (const file of files) {
+        try {
+          const response = await fetch(file);
+          const data = await response.json();
+          combinedData = combinedData.concat(data);
+        } catch (error) {
+          console.error(`Failed to load ${file}:`, error);
+        }
+      }
+    }
+
+    function formatDate(dateStr) {
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return dateStr;
+      let [dd, mm, yy] = parts;
+      if (yy.length === 4) yy = yy.slice(-2);
+      return `${dd.padStart(2, '0')}-${mm.padStart(2, '0')}-${yy}`;
+    }
+
+    async function fetchAndFillData(cif) {
+      let totalAmtIn = 0, totalOd = 0, totalRate = 0, count = 0;
+      const tbody = document.getElementById('data-body');
+      let latestEff = null, oldestEff = null;
+
+      combinedData.forEach(d => {
+        if (d.CUSTOMER === cif && d.Effective_Date) {
+          const dParts = d.Effective_Date.split('-');
+          const formatted = new Date(`${dParts[2].length === 2 ? '20' + dParts[2] : dParts[2]}-${dParts[1]}-${dParts[0]}`);
+          if (!latestEff || formatted > latestEff) latestEff = formatted;
+          if (!oldestEff || formatted < oldestEff) oldestEff = formatted;
+        }
+      });
+
+      const latestEffStr = latestEff ? formatDate(`${latestEff.getDate()}-${latestEff.getMonth()+1}-${latestEff.getFullYear()}`) : null;
+      const oldestEffStr = oldestEff ? formatDate(`${oldestEff.getDate()}-${oldestEff.getMonth()+1}-${oldestEff.getFullYear()}`) : null;
+
+      [...tbody.rows].forEach(row => {
+        const month = formatDate(row.cells[0].innerText);
+        const match = combinedData.find(d => d.CUSTOMER === cif && formatDate(d.MONTH) === month);
+
+        if (match) {
+          row.cells[1].innerText = parseFloat(match.AMT_IN).toLocaleString();
+          row.cells[2].innerText = parseFloat(match.CURRENT_OD).toLocaleString();
+          row.cells[3].innerText = match.TURNOVER_RATE + '%';
+          row.cells[4].innerText = match.Effective_Date;
+
+          totalAmtIn += parseFloat(match.AMT_IN);
+          totalOd += parseFloat(match.CURRENT_OD);
+
+          if (formatDate(match.Effective_Date) === latestEffStr) {
+            totalRate += parseFloat(match.TURNOVER_RATE);
+            count++;
+            row.classList.add('newest');
+          }
+          if (formatDate(match.Effective_Date) === oldestEffStr) {
+            row.classList.add('oldest');
+          }
+        } else {
+          row.classList.add("not-found");
+          row.cells[1].innerText = row.cells[2].innerText = row.cells[3].innerText = row.cells[4].innerText = 'No Data';
+        }
+      });
+
+      document.getElementById('avg-amt-in').innerText = totalAmtIn.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      document.getElementById('avg-current-od').innerText = totalOd.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      document.getElementById('avg-turnover-rate').innerText = count > 0 ? (totalRate / count).toFixed(2) + '%' : '';
+    }
+
+    document.getElementById('prepared-date').addEventListener('change', async (e) => {
+      const selectedDate = e.target.value;
+      if (selectedDate) {
+        monthList = getLast12MonthEnds(selectedDate);
+        updateTableWithEmptyMonths(monthList);
+        document.getElementById('input-cif').value = '';
+        document.getElementById('customer-name').value = '';
+        await loadAllData();
+      }
+    });
+
+    document.getElementById('input-cif').addEventListener('change', async (e) => {
+      const cif = e.target.value.trim();
+      if (!cif) return;
+      if (!combinedData.length) await loadAllData();
+      const found = combinedData.find(d => d.CUSTOMER === cif);
+      document.getElementById('customer-name').value = found ? found["Name(Eng)"] : 'Not Found';
+      await fetchAndFillData(cif);
+    });
+
+    function exportToExcel() {
+      const table = document.getElementById("turnover-table");
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.table_to_sheet(table);
+      XLSX.utils.book_append_sheet(wb, ws, "Turnover");
+      XLSX.writeFile(wb, "Turnover_Average.xlsx");
+    }
+
+    function exportToPDF() {
+      const backBtn = document.querySelector(".khmer-back-wrapper");
+      const actionSection = document.querySelector(".actions");
+
+      if (backBtn) backBtn.style.display = "none";
+      if (actionSection) actionSection.style.display = "none";
+
+      const element = document.body;
+      const opt = {
+        margin: 0.5,
+        filename: 'Turnover_Average.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdf().from(element).set(opt).save().then(() => {
+        if (backBtn) backBtn.style.display = "block";
+        if (actionSection) actionSection.style.display = "block";
+      });
+    }
+
+    function printPage() {
+      window.print();
+    }
+  </script>
+</body>
+</html>
