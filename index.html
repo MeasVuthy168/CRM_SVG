@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>ស្វែងរកអតិថិជន</title>
+
+  <script>
+    const user = sessionStorage.getItem("loggedInUser");
+    if (!user) {
+      window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
+    }
+  </script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -163,7 +174,7 @@
   <div style="height: 60px;"></div>
 
   <h1>ស្វែងរកអតិថិជន</h1>
-  
+
   <div class="search-container">
     <input type="text" id="searchBox" placeholder="Search by CIF, Name, Address or Phone Number...">
     <button id="searchButton">Search</button>
@@ -194,7 +205,7 @@
 
       function fetchData() {
         const files = [
-          "data.json", "data1.json", "data2.json", "data3.json", "data4.json", 
+          "data.json", "data1.json", "data2.json", "data3.json", "data4.json",
           "data5.json", "data6.json", "data7.json", "data8.json", "data9.json"
         ];
         let loadedFiles = 0;
@@ -219,6 +230,7 @@
           alert("Data is still loading or unavailable.");
           return;
         }
+
         const query = document.getElementById("searchBox").value.toLowerCase();
         const results = data.filter(item =>
           item.CIF.toLowerCase().includes(query) ||
@@ -237,14 +249,14 @@
         resultLabel.textContent = `Search Results: ${results.length}`;
         tableHead.style.display = results.length > 0 ? "table-header-group" : "none";
 
-        resultsTable.innerHTML = results.length > 0 
+        resultsTable.innerHTML = results.length > 0
           ? results.map(item => `
               <tr>
                 <td>${item.CIF}</td>
                 <td>${item.Name}</td>
                 <td>${item.Address}</td>
                 <td>${item.Phone_Number}</td>
-              </tr>`).join("") 
+              </tr>`).join("")
           : "<tr><td colspan='4'>No results found</td></tr>";
       }
 
