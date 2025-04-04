@@ -13,6 +13,24 @@
     if (!user) {
       window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
     }
+
+    // Auto logout after 1 minute of inactivity
+    const AUTO_LOGOUT_MINUTES = 1;
+    let logoutTimer;
+
+    function resetLogoutTimer() {
+      clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(() => {
+        sessionStorage.removeItem("loggedInUser");
+        alert("Session expired due to inactivity. Please log in again.");
+        window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
+      }, AUTO_LOGOUT_MINUTES * 60 * 1000);
+    }
+
+    window.onload = resetLogoutTimer;
+    document.onmousemove = resetLogoutTimer;
+    document.onkeydown = resetLogoutTimer;
+    document.onclick = resetLogoutTimer;
   </script>
 
   <style>
