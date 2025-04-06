@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>ស្វែងរកអតិថិជន</title>
+
+  <script>
+    const user = sessionStorage.getItem("loggedInUser");
+    if (!user) {
+      window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
+    }
+
+    const AUTO_LOGOUT_MINUTES = 1;
+    let logoutTimer;
+
+    function resetLogoutTimer() {
+      clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(() => {
+        sessionStorage.removeItem("loggedInUser");
+        alert("Session expired due to inactivity. Please log in again.");
+        window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
+      }, AUTO_LOGOUT_MINUTES * 60 * 1000);
+    }
+
+    window.onload = resetLogoutTimer;
+    document.onmousemove = resetLogoutTimer;
+    document.onkeydown = resetLogoutTimer;
+    document.onclick = resetLogoutTimer;
+  </script>
+
+  <style>
+    /* Load Krasar font */
+    @font-face {
+      font-family: 'Krasar';
+      src: url('https://measvuthy168.github.io/CreditAssist/Krasar-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Krasar';
+      src: url('https://measvuthy168.github.io/CreditAssist/Krasar-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Krasar', Arial, sans-serif;
+      background-color: #1c2331;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #3399ff;
+      color: white;
+      padding: 12px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 1000;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    .back-button:hover {
+      background-color: #1a8cff;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 80px 0 20px;
+      color: white;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    .search-container {
+      text-align: center;
+      margin: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 60%;
+      max-width: 400px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: #2c3545;
+      color: white;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    button#searchButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    button#searchButton:hover {
+      background-color: #218838;
+    }
+
+    #resultLabel {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #ccc;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    .table-container {
+      width: 95%;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      overflow-x: auto;
+      border-radius: 8px;
+      background-color: #2c3545;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      color: white;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    th, td {
+      border: 1px solid #444;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3d4a5a;
+    }
+
+    tr:nth-child(even) {
+      background-color: #1f2733;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #2c3545;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      font-size: 14px;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
+    @media (max-width: 600px) {
+      input[type="text"] {
+        width: 90%;
+        margin-bottom: 10px;
+      }
+
+      button#searchButton {
+        width: 90%;
+        margin-top: 10px;
+      }
+
+      .back-button {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      h1 {
+        margin-top: 70px;
+        font-size: 20px;
+      }
+
+      .table-container {
+        font-size: 13px;
+      }
+    }
+
+    @media print {
+      .back-button {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-button" onclick="window.location.href='https://measvuthy168.github.io/CreditAssist/'">
+    ⬅ ត្រឡប់ទៅទំព័រដើម
+  </button>
+
+  <div style="height: 60px;"></div>
+
+  <h1>ស្វែងរកអតិថិជន</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchBox" placeholder="ស្វែងរកតាម CIF, ឈ្មោះ, អាសយដ្ឋាន ឬ លេខទូរស័ព្ទ...">
+    <button id="searchButton">ស្វែងរក</button>
+    <span id="resultLabel">លទ្ធផលស្វែងរក៖ 0</span>
+  </div>
+
+  <div class="table-container">
+    <table id="results">
+      <thead style="display: none;">
+        <tr>
+          <th>CIF</th>
+          <th>ឈ្មោះ</th>
+          <th>អាសយដ្ឋាន</th>
+          <th>លេខទូរស័ព្ទ</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <p>© ២០២៥-២០២៦ បង្កើតសម្រាប់ក្រុមការងារឥណទានសាខាខេត្តស្វាយរៀង</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let data = [];
+
+      function fetchData() {
+        const files = [
+          "data.json", "data1.json", "data2.json", "data3.json", "data4.json",
+          "data5.json", "data6.json", "data7.json", "data8.json", "data9.json"
+        ];
+        let loadedFiles = 0;
+
+        Promise.all(files.map(file =>
+          fetch(file)
+            .then(response => response.ok ? response.json() : Promise.reject(`Failed to load ${file}`))
+            .then(json => {
+              if (Array.isArray(json)) {
+                data = data.concat(json);
+                loadedFiles++;
+              }
+            })
+            .catch(error => console.error(error))
+        )).then(() => {
+          if (loadedFiles === 0) alert("All JSON files failed to load.");
+        });
+      }
+
+      function performSearch() {
+        if (data.length === 0) {
+          alert("ទិន្នន័យមិនទាន់មានទេ។");
+          return;
+        }
+
+        const query = document.getElementById("searchBox").value.toLowerCase();
+        const results = data.filter(item =>
+          item.CIF.toLowerCase().includes(query) ||
+          item.Name.toLowerCase().includes(query) ||
+          item.Address.toLowerCase().includes(query) ||
+          item.Phone_Number.includes(query)
+        );
+        displayResults(results);
+      }
+
+      function displayResults(results) {
+        const resultsTable = document.querySelector("#results tbody");
+        const tableHead = document.querySelector("#results thead");
+        const resultLabel = document.getElementById("resultLabel");
+
+        resultLabel.textContent = `លទ្ធផលស្វែងរក៖ ${results.length}`;
+        tableHead.style.display = results.length > 0 ? "table-header-group" : "none";
+
+        resultsTable.innerHTML = results.length > 0
+          ? results.map(item => `
+              <tr>
+                <td>${item.CIF}</td>
+                <td>${item.Name}</td>
+                <td>${item.Address}</td>
+                <td>${item.Phone_Number}</td>
+              </tr>`).join("")
+          : "<tr><td colspan='4'>រកមិនឃើញលទ្ធផលទេ</td></tr>";
+      }
+
+      document.getElementById("searchButton").addEventListener("click", performSearch);
+      fetchData();
+    });
+  </script>
+</body>
+</html>
