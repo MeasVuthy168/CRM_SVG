@@ -8,15 +8,16 @@
   <meta http-equiv="Expires" content="0" />
   <title>ស្វែងរកអតិថិជន</title>
 
-  <!-- Keep PWA fullscreen behavior -->
+  <!-- PWA Manifest and App Mode Support -->
+  <link rel="manifest" href="https://measvuthy168.github.io/CreditAssist/manifest.json">
+  <link rel="apple-touch-icon" href="https://measvuthy168.github.io/CreditAssist/icons/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0d2d5c">
-  <base href="https://measvuthy168.github.io/CreditAssist/">
 
   <script>
     const user = sessionStorage.getItem("loggedInUser");
     if (!user) {
-      window.location.href = "login.html";
+      window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
     }
 
     const AUTO_LOGOUT_MINUTES = 1;
@@ -27,7 +28,7 @@
       logoutTimer = setTimeout(() => {
         sessionStorage.removeItem("loggedInUser");
         alert("Session expired due to inactivity. Please log in again.");
-        window.location.href = "login.html";
+        window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
       }, AUTO_LOGOUT_MINUTES * 60 * 1000);
     }
 
@@ -40,13 +41,13 @@
   <style>
     @font-face {
       font-family: 'Krasar';
-      src: url('Krasar-Regular.ttf') format('truetype');
+      src: url('https://measvuthy168.github.io/CreditAssist/Krasar-Regular.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
     @font-face {
       font-family: 'Krasar';
-      src: url('Krasar-Bold.ttf') format('truetype');
+      src: url('https://measvuthy168.github.io/CreditAssist/Krasar-Bold.ttf') format('truetype');
       font-weight: bold;
       font-style: normal;
     }
@@ -199,7 +200,7 @@
 </head>
 <body>
 
-  <button class="back-button" onclick="location.href='index.html'">
+  <button class="back-button" onclick="window.location.href='https://measvuthy168.github.io/CreditAssist/'">
     ⬅ ត្រឡប់ទៅទំព័រដើម
   </button>
 
