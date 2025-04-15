@@ -8,7 +8,13 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>ស្វែងរកអតិថិជន</title>
-
+  
+<script>
+  if (!sessionStorage.getItem("loggedInUser")) {
+    window.location.href = "login.html";
+  }
+</script>
+  
   <script>
     const user = sessionStorage.getItem("loggedInUser");
     if (!user) {
